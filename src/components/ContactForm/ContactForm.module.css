@@ -1,0 +1,22 @@
+.form {
+	display: flex;
+	flex-flow: column;
+}
+
+.formLabel {
+	display: flex;
+	justify-content: space-between;
+	padding-top: 8px;
+}
+
+.btnForm {
+	display: block;
+	margin-top: 8px;
+	cursor: pointer;
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 4px;
+	border: 1px solid;
+	border-radius: 8px;
+}

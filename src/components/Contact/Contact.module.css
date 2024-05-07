@@ -1,0 +1,14 @@
+.item {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: 1px solid;
+	border-radius: 8px;
+	margin: 8px;
+	padding: 8px;
+}
+
+.btn {
+	margin-left: 40px;
+	border: 1px solid;
+}
