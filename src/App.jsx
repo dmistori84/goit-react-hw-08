@@ -2,9 +2,19 @@ import ContactList from "./components/ContactList/ContactList";
 import SearchBox from "./components/SearchBox/SearchBox";
 import ContactForm from "./components/ContactForm/ContactForm";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
-import { useEffect } from "react";
-import { fetchContacts } from "./redux/contactsOps";
+import { NavLink, Route, Routes, useParams } from "react-router-dom";
+import { Suspense, useEffect } from "react";
+import { fetchContacts } from "./redux/contacts/operations";
+import NotFound from "./pages/NotFound/NotFound";
+import HomePage from "./pages/HomePage/HomePage";
+import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ContactsPage from "./pages/ContactsPage/ContactsPage";
+import Layout from "./components/Layout/Layout";
+import Loader from "./components/Loader/Loader";
+import { refreshUser } from "./redux/auth/operations.js";
+import RestrictedRoute from "./components/RestrictedRoute/RestrictedRoute.jsx";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
 
 // import { setFilter } from "./redux/filtersSlice";
 // import { addContact, deleteContact } from "./redux/contactsSlice";
@@ -24,40 +34,49 @@ function App() {
 		dispatch(fetchContacts(contactId));
 	}, [dispatch, contactId]);
 
-	// useEffect(() => {
-	// 	dispatch(apiDeleteContacts(contactId));
-	// }, [dispatch, contactId]);
-
-	// const dispatch = useDispatch();
-	// const contacts = useSelector(state => state.contactData.contacts.items);
-	// const filter = useSelector(state => state.changeFilter);
-
-	// const onChangeFilter = event => {
-	// 	dispatch(setFilter(event.target.value));
-	// };
-
-	// const onAddContacts = data => {
-	// 	const newContact = {
-	// 		...data,
-	// 		id: nanoid(),
-	// 	};
-	// 	dispatch(addContact(newContact));
-	// };
-
-	// const filteredContacts = contacts.filter(contact =>
-	// 	contact.name.toLowerCase().includes(filter.toLowerCase())
-	// );
-
-	// const onDeleteContact = id => {
-	// 	dispatch(deleteContact(id));
-	// };
+	useEffect(() => {
+		dispatch(refreshUser());
+	}, [dispatch]);
 
 	return (
 		<>
 			<h1>Phonebook</h1>
-			<ContactForm />
-			<SearchBox />
-			<ContactList />
+			<Layout>
+				<Suspense fallback={<Loader />}>
+					<Routes>
+						<Route path="/" element={<HomePage />} />
+						<Route
+							path="/register"
+							element={
+								<RestrictedRoute>
+									<RegistrationPage />
+								</RestrictedRoute>
+							}
+						/>
+						<Route
+							path="/login"
+							element={
+								<RestrictedRoute>
+									<LoginPage />
+								</RestrictedRoute>
+							}
+						/>
+						<Route
+							path="/contacts"
+							element={
+								<PrivateRoute>
+									<ContactsPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route path="*" element={<NotFound />} />
+					</Routes>
+				</Suspense>
+			</Layout>
+
+			{/* <ContactForm />
+				<SearchBox />
+				<ContactList /> */}
 		</>
 	);
 }

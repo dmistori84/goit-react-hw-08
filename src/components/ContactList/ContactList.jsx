@@ -12,7 +12,7 @@ import {
 	selectContactListisError,
 	selectContactListisLoading,
 	selectFilteredContacts,
-} from "../../redux/contactsSlice";
+} from "../../redux/contacts/slice";
 
 const ContactList = () => {
 	// const dispatch = useDispatch();

@@ -1,31 +1,33 @@
-import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
 //import { nanoid } from "nanoid";
 import * as Yup from "yup";
 
-import css from "./ContactForm.module.css";
+import css from "./LoginPage.module.css";
 import { addContact } from "../../redux/contacts/operations";
+import { login } from "../../redux/auth/operations";
 
 const INITIAL_VALUES = {
-	name: "",
-	number: "",
+	email: "",
+	password: "",
 };
 
-const MAX_SYMBOL = 50;
-const MIN_SYMBOL = 3;
+const MAX_SYMBOL = 30;
+const MIN_SYMBOL = 4;
 
-const contactsValidationSchema = Yup.object().shape({
-	name: Yup.string()
+const loginUserSchema = Yup.object().shape({
+	email: Yup.string()
 		.min(MIN_SYMBOL, "Too Short!")
 		.max(MAX_SYMBOL, "Too Long!")
+		.email("You must enter valid email address!")
 		.required("Required"),
-	number: Yup.string()
+	password: Yup.string()
 		.min(MIN_SYMBOL, "Too Short!")
 		.max(MAX_SYMBOL, "Too Long!")
 		.required("Required"),
 });
 
-const ContactForm = () => {
+const LoginPage = () => {
 	const dispatch = useDispatch();
 
 	const onAddContacts = data => {
@@ -36,33 +38,34 @@ const ContactForm = () => {
 	};
 
 	const handleSubmit = (values, actions) => {
-		onAddContacts(values);
+		dispatch(login(values));
+		// onAddContacts(values);
 		actions.resetForm();
 	};
-
 	return (
 		<Formik
 			initialValues={INITIAL_VALUES}
 			onSubmit={handleSubmit}
-			validationSchema={contactsValidationSchema}
+			validationSchema={loginUserSchema}
 		>
 			<Form className={css.form}>
+				<h2>Login</h2>
 				<label className={css.formLabel}>
-					Name
-					<Field type="text" name="name" />
-					<ErrorMessage component="p" name="name" />
+					Email
+					<Field type="email" name="email" />
+					<ErrorMessage component="p" name="email" />
 				</label>
 				<label className={css.formLabel}>
-					Number
-					<Field type="tel" name="number" />
-					<ErrorMessage component="p" name="number" />
+					Password
+					<Field type="password" name="password" />
+					<ErrorMessage component="p" name="password" />
 				</label>
 				<button className={css.btnForm} type="submit">
-					Add contact
+					Login
 				</button>
 			</Form>
 		</Formik>
 	);
 };
 
-export default ContactForm;
+export default LoginPage;
