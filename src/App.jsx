@@ -28,11 +28,11 @@ import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
 
 function App() {
 	const dispatch = useDispatch();
-	const { contactId } = useParams();
+	// const { contactId } = useParams();
 
-	useEffect(() => {
-		dispatch(fetchContacts(contactId));
-	}, [dispatch, contactId]);
+	// useEffect(() => {
+	// 	dispatch(fetchContacts(contactId));
+	// }, [dispatch, contactId]);
 
 	useEffect(() => {
 		dispatch(refreshUser());
