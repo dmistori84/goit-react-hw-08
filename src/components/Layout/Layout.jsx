@@ -1,13 +1,13 @@
-import { NavLink, Route, Routes } from "react-router-dom";
-import HomePage from "../../pages/HomePage/HomePage";
-import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
-import LoginPage from "../../pages/LoginPage/LoginPage";
-import ContactsPage from "../../pages/ContactsPage/ContactsPage";
-import NotFound from "../../pages/NotFound/NotFound";
-import { useDispatch, useSelector } from "react-redux";
-import { selectIsLoggedIn, selectUserData } from "../../redux/auth/selectors";
-import { logout } from "../../redux/auth/operations";
-import { Suspense, useState } from "react";
+// import { NavLink, Route, Routes } from "react-router-dom";
+// import HomePage from "../../pages/HomePage/HomePage";
+// import RegistrationPage from "../../pages/RegistrationPage/RegistrationPage";
+// import LoginPage from "../../pages/LoginPage/LoginPage";
+// import ContactsPage from "../../pages/ContactsPage/ContactsPage";
+// import NotFound from "../../pages/NotFound/NotFound";
+// import { useDispatch, useSelector } from "react-redux";
+// import { selectIsLoggedIn, selectUserData } from "../../redux/auth/selectors";
+// import { logout } from "../../redux/auth/operations";
+import { Suspense } from "react";
 import AppBar from "../AppBar/AppBar";
 import Loader from "../Loader/Loader";
 

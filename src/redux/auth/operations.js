@@ -10,7 +10,7 @@ export const setToken = token => {
 };
 
 export const clearToken = () => {
-	instance.defaults.headers.Authorization = "";
+	instance.defaults.headers.common.Authorization = "";
 };
 
 export const register = createAsyncThunk(
