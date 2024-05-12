@@ -34,7 +34,6 @@ const ContactsPage = () => {
 						</li>
 					))}
 			</ul>
-			ContactsPage
 		</div>
 	);
 };
