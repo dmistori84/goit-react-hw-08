@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { apiGetContacts } from "../../redux/contacts2/slice";
+import { apiDeleteContacts, apiGetContacts } from "../../redux/contacts2/slice";
 import {
 	selectPhonebookContacts,
 	// selectPhonebookIsError,
@@ -8,6 +8,7 @@ import {
 } from "../../redux/contacts2/selectors";
 import Loader from "../../components/Loader/Loader";
 import AddContactForm from "../../components/AddContactForm/AddContactForm";
+import SearchBox from "../../components/SearchBox/SearchBox";
 
 const ContactsPage = () => {
 	const dispatch = useDispatch();
@@ -18,9 +19,15 @@ const ContactsPage = () => {
 	useEffect(() => {
 		dispatch(apiGetContacts());
 	}, [dispatch]);
+
+	const onDeleteContact = contactId => {
+		dispatch(apiDeleteContacts(contactId));
+	};
+
 	return (
 		<div>
 			<AddContactForm />
+			<SearchBox />
 			{isLoading && <Loader />}
 			<ul>
 				{Array.isArray(contacts) && contacts.length === 0 && (
@@ -31,6 +38,9 @@ const ContactsPage = () => {
 						<li key={contact.id}>
 							<h3>Name: {contact.name}</h3>
 							<p>Number: {contact.number}</p>
+							<button onClick={() => onDeleteContact(contact.id)} type="button">
+								Delete
+							</button>
 						</li>
 					))}
 			</ul>

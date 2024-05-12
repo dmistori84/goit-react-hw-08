@@ -1,10 +1,9 @@
 import { useDispatch } from "react-redux";
 import { ErrorMessage, Field, Form, Formik } from "formik";
-//import { nanoid } from "nanoid";
 import * as Yup from "yup";
 
-import css from "./AddContactForm.module.css";
 import { apiAddContacts } from "../../redux/contacts2/slice";
+import css from "./AddContactForm.module.css";
 
 const INITIAL_VALUES = {
 	name: "",

@@ -29,6 +29,18 @@ export const apiAddContacts = createAsyncThunk(
 	}
 );
 
+export const apiDeleteContacts = createAsyncThunk(
+	"contacts/delete",
+	async (contactId, thunkApi) => {
+		try {
+			const { data } = await instance.delete(`/contacts/${contactId}`);
+			return data;
+		} catch (e) {
+			return thunkApi.rejectWithValue(e.message);
+		}
+	}
+);
+
 const initialState = {
 	contacts: null,
 	isLoading: false,
@@ -49,16 +61,29 @@ const contactsSlice = createSlice({
 				state.contacts = [...state.contacts, action.payload];
 				// state.contacts.push(action.payload);
 			})
+			.addCase(apiDeleteContacts.fulfilled, (state, action) => {
+				state.isLoading = false;
+				state.contacts = state.contacts.filter(
+					contact => contact.id !== action.payload.id
+				);
+			})
 			.addMatcher(
-				isAnyOf(apiGetContacts.pending, apiAddContacts.pending),
+				isAnyOf(
+					apiGetContacts.pending,
+					apiAddContacts.pending,
+					apiDeleteContacts.pending
+				),
 				state => {
 					state.isLoading = true;
 					state.isError = false;
-					state.contacts = state;
 				}
 			)
 			.addMatcher(
-				isAnyOf(apiGetContacts.rejected, apiAddContacts.rejected),
+				isAnyOf(
+					apiGetContacts.rejected,
+					apiAddContacts.rejected,
+					apiDeleteContacts.rejected
+				),
 				state => {
 					state.isLoading = false;
 					state.isError = true;
