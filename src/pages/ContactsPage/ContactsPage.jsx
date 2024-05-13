@@ -9,6 +9,7 @@ import {
 import Loader from "../../components/Loader/Loader";
 import AddContactForm from "../../components/AddContactForm/AddContactForm";
 import SearchBox from "../../components/SearchBox/SearchBox";
+import ContactList from "../../components/ContactList/ContactList";
 
 const ContactsPage = () => {
 	const dispatch = useDispatch();
@@ -20,16 +21,17 @@ const ContactsPage = () => {
 		dispatch(apiGetContacts());
 	}, [dispatch]);
 
-	const onDeleteContact = contactId => {
-		dispatch(apiDeleteContacts(contactId));
-	};
+	// const onDeleteContact = contactId => {
+	// 	dispatch(apiDeleteContacts(contactId));
+	// };
 
 	return (
 		<div>
 			<AddContactForm />
 			<SearchBox />
 			{isLoading && <Loader />}
-			<ul>
+			<ContactList />
+			{/* <ul>
 				{Array.isArray(contacts) && contacts.length === 0 && (
 					<li>No contacts</li>
 				)}
@@ -43,7 +45,7 @@ const ContactsPage = () => {
 							</button>
 						</li>
 					))}
-			</ul>
+			</ul> */}
 		</div>
 	);
 };

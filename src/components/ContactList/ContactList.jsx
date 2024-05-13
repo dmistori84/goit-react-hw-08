@@ -11,18 +11,21 @@ import Loader from "../Loader/Loader";
 import {
 	selectContactListisError,
 	selectContactListisLoading,
-	selectFilteredContacts,
 } from "../../redux/contacts/slice";
+import { selectPhonebookIsLoading } from "../../redux/contacts2/selectors";
+import { selectFilteredContacts } from "../../redux/filters/selectors.js";
 
 const ContactList = () => {
+	const filteredContacts = useSelector(selectFilteredContacts);
+	console.log("ContactList ~ filteredContacts:", filteredContacts);
 	// const dispatch = useDispatch();
 	// const { contactId } = useParams();
 	// const selectContacts = useSelector(selectContactListselectContacts);
 	// const selectNameFilter = useSelector(selectContactListselectNameFilter);
-	const filteredContacts = useSelector(selectFilteredContacts);
-	// const selectContacts2 = useSelector(state => state.contactsOps.items);
-	const isLoading = useSelector(selectContactListisLoading);
-	const isError = useSelector(selectContactListisError);
+	// const filteredContacts = useSelector(selectFilteredContacts);
+	// // const selectContacts2 = useSelector(state => state.contactsOps.items);
+	// const isLoading = useSelector(selectContactListisLoading);
+	// const isError = useSelector(selectContactListisError);
 
 	// useEffect(() => {
 	// 	dispatch(apiRequestContacts(contactId));
@@ -31,6 +34,7 @@ const ContactList = () => {
 	// const filteredContacts = selectContacts.filter(contact =>
 	// 	contact.name.toLowerCase().includes(selectNameFilter.toLowerCase())
 	// );
+	const isLoading = useSelector(selectPhonebookIsLoading);
 
 	return (
 		<div>
