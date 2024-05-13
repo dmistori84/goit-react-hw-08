@@ -8,10 +8,6 @@ import css from "./ContactList.module.css";
 // import { apiRequestContacts } from "../../redux/contactsOps";
 // import { useParams } from "react-router-dom";
 import Loader from "../Loader/Loader";
-import {
-	selectContactListisError,
-	selectContactListisLoading,
-} from "../../redux/contacts/slice";
 import { selectPhonebookIsLoading } from "../../redux/contacts2/selectors";
 import { selectFilteredContacts } from "../../redux/filters/selectors.js";
 

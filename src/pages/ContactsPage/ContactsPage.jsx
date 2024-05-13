@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { apiDeleteContacts, apiGetContacts } from "../../redux/contacts2/slice";
-import {
-	selectPhonebookContacts,
-	// selectPhonebookIsError,
-	selectPhonebookIsLoading,
-} from "../../redux/contacts2/selectors";
+import { apiGetContacts } from "../../redux/contacts2/slice";
+import { selectPhonebookIsLoading } from "../../redux/contacts2/selectors";
 import Loader from "../../components/Loader/Loader";
 import AddContactForm from "../../components/AddContactForm/AddContactForm";
 import SearchBox from "../../components/SearchBox/SearchBox";
@@ -13,17 +9,13 @@ import ContactList from "../../components/ContactList/ContactList";
 
 const ContactsPage = () => {
 	const dispatch = useDispatch();
-	const contacts = useSelector(selectPhonebookContacts);
+
 	const isLoading = useSelector(selectPhonebookIsLoading);
 	// const isError = useSelector(selectPhonebookIsError);
 
 	useEffect(() => {
 		dispatch(apiGetContacts());
 	}, [dispatch]);
-
-	// const onDeleteContact = contactId => {
-	// 	dispatch(apiDeleteContacts(contactId));
-	// };
 
 	return (
 		<div>
